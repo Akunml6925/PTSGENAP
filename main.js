@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import {
   getFirestore,
   collection,
@@ -10,56 +10,52 @@ import {
   query,
   orderBy,
   updateDoc
-} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
-
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCk91ZVPVhRsDWNK4a6tp1xbH2rMWXC4Go",
-  authDomain: "perojekbaru.firebaseapp.com",
-  projectId: "perojekbaru",
-  storageBucket: "perojekbaru.appspot.com",
-  messagingSenderId: "729836730078",
-  appId: "1:729836730078:web:4cd56b47d31876b901744f",
-  measurementId: "G-404NXCSVMJ"
+  apiKey: "AIzaSyA-wvBGzlYI9NHjVZBq7wbUHtEWrN3AFI8",
+  authDomain: "pasarbarokah-56d6c.firebaseapp.com",
+  projectId: "pasarbarokah-56d6c",
+  storageBucket: "pasarbarokah-56d6c.appspot.com",
+  messagingSenderId: "316348641371",
+  appId: "1:316348641371:web:5ad38a561e7d73744acf7e",
 };
 
+// Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export async function ambilDaftarsiswa() {
-  const siswaRef = collection(db, "siswa");
-  const q = query(siswaRef, orderBy("nama"));
-  const querySnapshot = await getDocs(q);
-
-  let retval = [];
-  querySnapshot.forEach((doc) => {
-    retval.push({ id: doc.id, nama: doc.data().nama });
-  });
-
-  return retval;
-}
-
-export async function tambahsiswa(val) {
-  try {
-    const docRef = await addDoc(collection(db, "siswa"), {
-      nama: val
-    });
-    console.log('Berhasil menyimpan dokumen dengan ID: ' + docRef.id);
-  } catch (e) {
-    console.log('Error menambah dokumen' + e);
-  }
-}
-export async function hapussiswa(docId){
-  await deleteDoc(doc(db, "siswa", docId));
-}
-
-export async function ubahsiswa(docId, val) {
- await updateDoc(doc(db,"siswa",docId), {nama: val }); 
-}
-
-export async function ambilsiswa(docId) {
-  const docRef = await doc(db, "siswa", docId);
-  const docsnap = await getDoc(docRef);
+export async function ambilDaftarproduk(){
+  const refDokumen = collection(db, "produk");
+  const kuery = query(refDokumen, orderBy("nama"));
+  const cuplikankuery = await getDocs(kuery);
   
-  return await docsnap.data();
+  let hasil = [];
+  cuplikankuery.forEach((dok) => {
+    hasil.push({
+      id: dok.id,
+      nama: dok.data().nama,
+      harga: dok.data().harga,
+      stok: dok.data().stok,
+    });
+  });
+  
+  return hasil;
+}
+
+export function formatAngka(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+export async function tambahProduk(nama,harga,stok) {
+  try {
+    const dokRef = await addDoc(collection(db,'produk'), {
+      nama: nama,
+      harga: harga,
+      stok: stok
+    });
+    console.log('Berhasil menambah produk' + dokRef.id);
+  } catch (e) {
+    console.log('Gagal menambah produk' + e);
+  }
 }
