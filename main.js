@@ -34,8 +34,8 @@ export async function ambilDaftarproduk(){
   cuplikankuery.forEach((dok) => {
     hasil.push({
       id: dok.id,
-      nama: dok.data().nama,
-      harga: dok.data().harga,
+      nama: dok.data().pembeli,
+      harga: dok.data().nama,
       stok: dok.data().stok,
     });
   });
