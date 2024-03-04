@@ -34,9 +34,9 @@ export async function ambilDaftarproduk(){
   cuplikankuery.forEach((dok) => {
     hasil.push({
       id: dok.id,
-      nama: dok.data().pembeli,
-      harga: dok.data().nama,
-      stok: dok.data().stok,
+      pemebli: dok.data().pembeli,
+      nama: dok.data().nama,
+      notlpn:dok.data().notlpn,
     });
   });
   
@@ -47,15 +47,14 @@ export function formatAngka(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-export async function tambahProduk(nama,harga,stok) {
+export async function tambahProduk(pembeli,nama,notlpn) {
   try {
     const dokRef = await addDoc(collection(db,'produk'), {
-      nama: nama,
-      harga: harga,
-      stok: stok
+      pembeli: pembeli,
+      nama:nama,
+      notlpn:notlpn
     });
     console.log('Berhasil menambah produk' + dokRef.id);
   } catch (e) {
     console.log('Gagal menambah produk' + e);
   }
-}
