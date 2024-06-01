@@ -21,10 +21,6 @@
       <label class="form-label">alamat</label>
       <input type="text" class="form-control" id="input-alamat">
     </div>
-     <div class="mb-3">
-      <label class="form-label">gmail</label>
-      <input type="text" class="form-control" id="input-gmail">
-    </div>
     <div class="mb-3">
       <label class="form-label">noTlpn</label>
       <input type="text" class="form-control" id="input-noTlpn">
@@ -41,7 +37,6 @@
     let tombolUbah = document.getElementById('tombol-ubah');
     let elemenNamaPenjual = document.getElementById('input-nama');
     let elemenalamat = document.getElementById('input-alamat');
-    let elemenemail = document.getElementById('input-email');
     let elemenNoTlpn = document.getElementById('input-noTlpn');
     let loader = document.getElementById('loader');
     const queryString = window.location.search
@@ -51,13 +46,12 @@
 
     elemenNamaPenjual.value = penjual.nama;
     elemenalamat.value = penjual.alamat;
-    elemenemail.value = penjual.email;
     elemennoTlpn.value = penjual.noTlpn;
 
 
     tombolUbah.addEventListener('click', async function(el) {
       el.preventDefault();
-      await ubahPenjual(docId, elemenNamaPenjual.value, elemenalamat.value, elemenemail.value, elemenNoTlpn.value);
+      await ubahPenjual(docId, elemenNamaPenjual.value, elemenalamat.value, elemenNoTlpn.value);
       window.location.href = 'index.html';
     });
   </script>
