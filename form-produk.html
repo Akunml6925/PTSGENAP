@@ -13,37 +13,39 @@
 </head>
 
 <body class="m-3">
-   <h1>Form Pembelik</h1>
+   <h1>Form Produk</h1>
    
      <form class="mb-3">
        <div class="mb-3">
-         <label class="form-label">Nama Pembeli</label>
+         <label class="form-label">Nama Produk</label>
          <input type="text" class="form-control" id="input-nama">
        </div>
           <div class="mb-3">
-         <label class="form-label">Alamat</label>
-         <input type="text" class="form-control" id="input-alamat">
+         <label class="form-label">Harga</label>
+         <input type="text" class="form-control" id="input-harga">
        </div>
           <div class="mb-3">
-            <label class="form-label">No.Tlpn</label>
-            <input type="text" class="form-control" id="input-noTlpn">
+            <label class="form-label">stok</label>
+            <input type="text" class="form-control" id="input-stok">
           </div>
        <button type="submit" class="btn btn-primary" id="tombol-tambah">Simpan</button>
+     
      </form>
    
-   <a href="index.html">Daftar Pembeli Ashelole</a>
+   <a href="index.html">Daftar Produk Ashelole</a>
    
    <script type="module">
-     import { tambahPembeli } from './main.js';
+     import { tambahProduk } from './main.js';
      
      let tombolTambah = document.getElementById('tombol-tambah');
-     let elemenNamaPembeli = document.getElementById('input-nama');
-     let elemenAlamat = document.getElementById('input-alamat');
-     let elemenNoTlpn = document.getElementById('input-noTlpn');
+     let elemenNamaProduk = document.getElementById('input-nama');
+     let elemenHarga = document.getElementById('input-harga');
+     let elemenStok = document.getElementById('input-stok');
+     let loader = document.getElementById('loader');
      
      tombolTambah.addEventListener('click', async function (e) {
        e.preventDefault();
-       await tambahPembeli(elemenNamaPembeli.value, elemenAlamat.value, elemenNoTlpn.value );
+       await tambahProduk(elemenNamaProduk.value, elemenHarga.value, elemenStok.value );
        window.location.href = 'index.html'
      })
    </script>

@@ -14,21 +14,21 @@ import {
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBlahoJjeK0jyO-4tZlAiPRjym6Mxn2P6o",
-  authDomain: "insan-cemerlang-59727.firebaseapp.com",
-  projectId: "insan-cemerlang-59727",
-  storageBucket: "insan-cemerlang-59727.appspot.com",
-  messagingSenderId: "839220708273",
-  appId: "1:839220708273:web:4d1dde85cf74aebd1d7390",
-  measurementId: "G-1VP3D59R0T"
+  apiKey: "AIzaSyB8g6kCR8laDnH1YCF9cYVy10lF1y7s2i0",
+  authDomain: "bakwan-jagung.firebaseapp.com",
+  projectId: "bakwan-jagung",
+  storageBucket: "bakwan-jagung.appspot.com",
+  messagingSenderId: "710653450064",
+  appId: "1:710653450064:web:5cbf9ff4240922b03ffe55",
+  measurementId: "G-VBHD7G08PJ"
 };
 
 // Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export async function ambilDaftarPembeli() {
-  const refDokumen = collection(db, "pembeli");
+export async function ambilDaftarProduk() {
+  const refDokumen = collection(db, "produk");
   const kueri = query(refDokumen, orderBy("nama"));
   const cuplikanKueri = await getDocs(kueri);
 
@@ -37,13 +37,11 @@ export async function ambilDaftarPembeli() {
     hasil.push({
       id: dok.id,
       nama: dok.data().nama,
-      alamat: dok.data().alamat,
-      noTlpn: dok.data().noTlpn,
+      harga: dok.data().harga,
+      stok: dok.data().stok,
     });
   });
-
-
-
+  
   return hasil;
 }
 
@@ -51,12 +49,12 @@ export function formatAngka(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-export async function tambahPembeli(nama, alamat, noTlpn) {
+export async function tambahProduk(nama, harga, stok) {
   try {
-    const dokRef = await addDoc(collection(db, 'pembeli'), {
+    const dokRef = await addDoc(collection(db, 'produk'), {
       nama: nama,
-      alamat: alamat,
-      noTlpn: noTlpn
+      harga: harga,
+      stok: stok
     });
     console.log('berhasil menembah produk ' + dokRef.id);
   } catch (e) {
@@ -64,21 +62,6 @@ export async function tambahPembeli(nama, alamat, noTlpn) {
   }
 }
 
-export async function hapusPembeli(docId) {
-  await deleteDoc(doc(db, "pembeli", docId));
-}
-
-export async function ubahPembeli(docId, nama, alamat, noTlpn) {
-  await updateDoc(doc(db, "pembeli", docId), {
-    nama: nama,
-    alamat: alamat,
-    noTlpn: noTlpn
-  });
-}
-
-export async function ambilPembeli(docId) {
-  const docRef = await doc(db, "pembeli", docId);
-  const docSnap = await getDoc(docRef);
-
-  return await docSnap.data();
+export async function hapusProduk(docId) {
+  await deleteDoc(doc(db, "produk", docId));
 }
